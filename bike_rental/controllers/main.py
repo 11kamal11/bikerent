@@ -1,7 +1,9 @@
 from odoo import http
 from odoo.http import request
-import json
+import logging
 from datetime import datetime
+
+_logger = logging.getLogger(__name__)
 
 class BikeRentalController(http.Controller):
     @http.route('/bikes', auth='public', website=True)
@@ -11,6 +13,7 @@ class BikeRentalController(http.Controller):
         if price_filter:
             domain.append(('price', '<=', price_filter))
         bikes = request.env['bike.rental'].sudo().search(domain)
+        _logger.info("Rendering bike list with %d bikes, price_filter=%s", len(bikes), price_filter)
         return request.render('bike_rental.bike_list_template', {
             'bikes': bikes,
             'price_filter': price_filter or '',
@@ -22,6 +25,7 @@ class BikeRentalController(http.Controller):
         bike_id = post.get('bike_id')
         start_date = post.get('start_date')
         duration = post.get('duration')
+        _logger.info("Received rental request: name=%s, bike_id=%s, start_date=%s, duration=%s", name, bike_id, start_date, duration)
         if name and bike_id and start_date and duration:
             try:
                 duration = int(duration)
@@ -32,25 +36,15 @@ class BikeRentalController(http.Controller):
                     'start_date': start_date,
                     'duration': duration,
                 })
+                _logger.info("Rental request created successfully for bike_id=%s", bike_id)
                 return request.render('bike_rental.bike_request_success_template', {})
             except Exception as e:
+                _logger.error("Error processing request: %s", str(e))
                 return request.render('bike_rental.bike_request_error_template', {'error': str(e)})
         return request.render('bike_rental.bike_request_error_template', {'error': 'Missing required fields'})
 
     @http.route('/my/bike-requests', auth='user', website=True)
     def my_requests(self, **kwargs):
         requests = request.env['bike.rental.request'].sudo().search([('user_id', '=', request.env.user.id)])
+        _logger.info("Rendering my requests for user %s with %d requests", request.env.user.name, len(requests))
         return request.render('bike_rental.my_requests_template', {'requests': requests})
-
-    @http.route('/bikes/availability', auth='public', website=True)
-    def bike_availability(self, **kwargs):
-        bikes = request.env['bike.rental'].sudo().search([('is_available', '=', True)])
-        events = []
-        for bike in bikes:
-            # Simulate availability events (in a real scenario, check rental periods)
-            events.append({
-                'title': bike.name,
-                'start': datetime.now().strftime('%Y-%m-%d'),
-                'end': datetime.now().strftime('%Y-%m-%d'),
-            })
-        return json.dumps(events)
