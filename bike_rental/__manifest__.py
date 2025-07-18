@@ -8,10 +8,9 @@
     "website": "https://yourwebsite.com",
     "depends": ["base"],
     "data": [
-        "security/ir.model.access.csv",
-        "security/security.xml",
-        "views/bike_rental_views.xml"
-    ],
+    "security/ir.model.access.csv",
+    "views/bike_rental_views.xml"
+],
     "installable": true,
     "application": true,
     "auto_install": false
