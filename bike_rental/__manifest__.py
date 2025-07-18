@@ -15,8 +15,8 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "bike_rental/static/src/css/bike_rental.css",
-            "bike_rental/static/src/js/bike_rental.js",
+            "bike_rental/static/src/css/bike_rental.css?v=1.0",
+            "bike_rental/static/src/js/bike_rental.js?v=1.0",
         ],
     },
     "installable": True,

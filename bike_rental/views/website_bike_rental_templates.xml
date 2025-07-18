@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="bike_list_template" name="Bike Rental List">
+    <template id="bike_list_template" name="Bike Rental List" page="true">
         <t t-call="website.layout">
+            <t t-set="main_object" t-value="request.env.ref('bike_rental.bike_list_template')"/>
             <div class="container mt-4">
                 <h1>Available Bikes for Rent</h1>
                 <form action="/bikes" method="get" class="form-inline mb-4">
@@ -26,6 +27,9 @@
                                 </div>
                             </div>
                         </div>
+                    </t>
+                    <t t-if="not bikes">
+                        <div class="alert alert-warning">No bikes available matching your filter.</div>
                     </t>
                 </div>
                 <h2>Rent a Bike</h2>
@@ -55,7 +59,7 @@
             </div>
         </t>
     </template>
-    <template id="bike_request_success_template" name="Bike Request Success">
+    <template id="bike_request_success_template" name="Bike Request Success" page="true">
         <t t-call="website.layout">
             <div class="container mt-4">
                 <h1>Request Submitted</h1>
@@ -64,7 +68,7 @@
             </div>
         </t>
     </template>
-    <template id="bike_request_error_template" name="Bike Request Error">
+    <template id="bike_request_error_template" name="Bike Request Error" page="true">
         <t t-call="website.layout">
             <div class="container mt-4">
                 <h1>Error</h1>
@@ -73,7 +77,7 @@
             </div>
         </t>
     </template>
-    <template id="my_requests_template" name="My Bike Requests">
+    <template id="my_requests_template" name="My Bike Requests" page="true">
         <t t-call="website.layout">
             <div class="container mt-4">
                 <h1>My Bike Rental Requests</h1>
