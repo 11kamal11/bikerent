@@ -1,17 +1,31 @@
-{
-    "name": "Bike Rental",
-    "version": "1.0",
-    "category": "Rental",
-    "summary": "A simple bike rental module for Odoo.",
-    "description": "This module allows users to rent bikes, manage rental records, and track availability.",
-    "author": "Kamal",
-    "website": "https://yourwebsite.com",
-    "depends": ["base"],
-    "data": [
-    "security/ir.model.access.csv",
-    "views/bike_rental_views.xml"
-],
-    "installable": true,
-    "application": true,
-    "auto_install": false
-}
+<odoo>
+    <record id="view_bike_rental_tree" model="ir.ui.view">
+        <field name="name">bike.rental.tree</field>
+        <field name="model">bike.rental</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="price"/>
+                <field name="is_available"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_bike_rental_form" model="ir.ui.view">
+        <field name="name">bike.rental.form</field>
+        <field name="model">bike.rental</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="price"/>
+                <field name="rental_duration"/>
+                <field name="is_available"/>
+            </form>
+        </field>
+    </record>
+    <menuitem id="menu_bike_rental_root" name="Bike Rental"/>
+    <menuitem id="menu_bike_rental" name="Bikes" parent="menu_bike_rental_root"/>
+    <act_window id="action_bike_rental" name="Bike Rentals"
+        res_model="bike.rental" view_mode="tree,form"
+        menu_id="menu_bike_rental"/>
+</odoo>
