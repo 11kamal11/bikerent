@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="view_bike_rental_tree" model="ir.ui.view">
         <field name="name">bike.rental.tree</field>
@@ -27,17 +28,17 @@
             </form>
         </field>
     </record>
-    <menuitem id="menu_bike_rental_root" name="Bike Rental" sequence="10"/>
-    <menuitem id="menu_bike_rental" name="Bikes" parent="menu_bike_rental_root" sequence="20"/>
     <record id="action_bike_rental" model="ir.actions.act_window">
         <field name="name">Bike Rentals</field>
         <field name="res_model">bike.rental</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
-            <p class="oe_view_nocontent_create">
+            <p class="o_view_nocontent_smiling_face">
                 Click to create a new bike rental record.
             </p>
         </field>
     </record>
-    <menuitem id="menu_bike_rental_action" name="Bike Rentals" action="action_bike_rental" parent="menu_bike_rental" sequence="30"/>
+    <menuitem id="menu_bike_rental_root" name="Bike Rental" sequence="10"/>
+    <menuitem id="menu_bike_rental" name="Bikes" parent="menu_bike_rental_root" sequence="20"/>
+    <menuitem id="menu_bike_rental_action" name="Bike Rentals" parent="menu_bike_rental" action="action_bike_rental" sequence="30"/>
 </odoo>
