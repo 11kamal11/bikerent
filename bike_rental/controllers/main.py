@@ -6,6 +6,22 @@ from datetime import datetime
 _logger = logging.getLogger(__name__)
 
 class BikeRentalController(http.Controller):
+    @http.route('/', auth='public', website=True, type='http')
+    def home(self, **kwargs):
+        _logger.info("Accessed custom home route with kwargs: %s", kwargs)
+        price_filter = float(kwargs.get('price_filter', 0)) if kwargs.get('price_filter') else None
+        domain = [('is_available', '=', True)]
+        if price_filter:
+            domain.append(('price', '<=', price_filter))
+        bikes = request.env['bike.rental'].sudo().search(domain)
+        _logger.info("Rendering home with %d bikes, price_filter=%s", len(bikes), price_filter)
+        if not bikes:
+            _logger.warning("No bikes found for domain: %s", domain)
+        return request.render('bike_rental.bike_list_template', {
+            'bikes': bikes,
+            'price_filter': price_filter or '',
+        })
+
     @http.route('/bikes', auth='public', website=True, type='http')
     def bike_list(self, **kwargs):
         _logger.info("Accessed /bikes route with kwargs: %s", kwargs)

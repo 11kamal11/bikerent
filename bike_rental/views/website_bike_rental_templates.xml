@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="bike_list_template" name="Bike Rental List" page="true">
+    <template id="bike_list_template" name="Bike Rental Home" page="true">
         <t t-call="website.layout">
             <t t-set="main_object" t-value="request.env.ref('bike_rental.bike_list_template')"/>
             <div class="container mt-4">
-                <h1>Available Bikes for Rent</h1>
-                <form action="/bikes" method="get" class="form-inline mb-4">
+                <h1>Welcome to Bike Rental</h1>
+                <p>Find and rent your bike today!</p>
+                <form action="/" method="get" class="form-inline mb-4">
                     <div class="form-group mr-2">
                         <label for="price_filter" class="mr-2">Max Price:</label>
                         <input type="number" class="form-control" id="price_filter" name="price_filter" t-att-value="price_filter" placeholder="Enter max price"/>
@@ -64,7 +65,7 @@
             <div class="container mt-4">
                 <h1>Request Submitted</h1>
                 <p>Your bike rental request has been submitted successfully. We will contact you soon.</p>
-                <a href="/bikes" class="btn btn-primary">Back to Bikes</a>
+                <a href="/" class="btn btn-primary">Back to Home</a>
             </div>
         </t>
     </template>
@@ -73,7 +74,7 @@
             <div class="container mt-4">
                 <h1>Error</h1>
                 <p>An error occurred: <t t-esc="error"/></p>
-                <a href="/bikes" class="btn btn-primary">Back to Bikes</a>
+                <a href="/" class="btn btn-primary">Back to Home</a>
             </div>
         </t>
     </template>
@@ -105,7 +106,7 @@
                         </t>
                     </tbody>
                 </table>
-                <a href="/bikes" class="btn btn-primary">Rent Another Bike</a>
+                <a href="/" class="btn btn-primary">Back to Home</a>
             </div>
         </t>
     </template>
