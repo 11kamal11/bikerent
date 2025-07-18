@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Minimal tree view to test installation -->
-    <record id="view_bike_rental_tree" model="ir.ui.view">
-        <field name="name">bike.rental.tree</field>
+    <record id="view_bike_rental_list" model="ir.ui.view">
+        <field name="name">bike.rental.list</field>
         <field name="model">bike.rental</field>
         <field name="arch" type="xml">
-            <tree string="Bike Rentals">
+            <list string="Bike Rentals">
                 <field name="name" string="Bike Name"/>
-            </tree>
+            </list>
         </field>
     </record>
     <!-- Minimal action and menu -->
     <record id="action_bike_rental" model="ir.actions.act_window">
         <field name="name">Bike Rentals</field>
         <field name="res_model">bike.rental</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Click to create a new bike rental record.
