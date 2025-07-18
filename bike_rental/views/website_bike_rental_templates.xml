@@ -2,12 +2,22 @@
 <odoo>
     <template id="bike_list_template" name="Bike Rental List">
         <t t-call="website.layout">
-            <div class="container">
+            <div class="container mt-4">
                 <h1>Available Bikes for Rent</h1>
+                <form action="/bikes" method="get" class="form-inline mb-4">
+                    <div class="form-group mr-2">
+                        <label for="price_filter" class="mr-2">Max Price:</label>
+                        <input type="number" class="form-control" id="price_filter" name="price_filter" t-att-value="price_filter" placeholder="Enter max price"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </form>
                 <div class="row">
                     <t t-foreach="bikes" t-as="bike">
                         <div class="col-md-4 mb-4">
-                            <div class="card">
+                            <div class="card bike-card">
+                                <t t-if="bike.image">
+                                    <img t-att-src="'data:image/jpeg;base64,%s' % bike.image.decode('utf-8')" class="card-img-top" alt="Bike Image"/>
+                                </t>
                                 <div class="card-body">
                                     <h5 class="card-title"><t t-esc="bike.name"/></h5>
                                     <p class="card-text"><t t-esc="bike.description or 'No description available'"/></p>
@@ -19,7 +29,7 @@
                     </t>
                 </div>
                 <h2>Rent a Bike</h2>
-                <form action="/bikes/request" method="post" class="form">
+                <form action="/bikes/request" method="post" class="form" id="rental-form">
                     <div class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" class="form-control" id="name" name="name" required="1"/>
@@ -33,17 +43,23 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="start_date">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" required="1"/>
+                    </div>
+                    <div class="form-group">
                         <label for="duration">Rental Duration (days)</label>
-                        <input type="number" class="form-control" id="duration" name="duration" required="1"/>
+                        <input type="number" class="form-control" id="duration" name="duration" required="1" min="1"/>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit Request</button>
                 </form>
+                <h2>Bike Availability Calendar</h2>
+                <div id="calendar"></div>
             </div>
         </t>
     </template>
     <template id="bike_request_success_template" name="Bike Request Success">
         <t t-call="website.layout">
-            <div class="container">
+            <div class="container mt-4">
                 <h1>Request Submitted</h1>
                 <p>Your bike rental request has been submitted successfully. We will contact you soon.</p>
                 <a href="/bikes" class="btn btn-primary">Back to Bikes</a>
@@ -52,10 +68,42 @@
     </template>
     <template id="bike_request_error_template" name="Bike Request Error">
         <t t-call="website.layout">
-            <div class="container">
+            <div class="container mt-4">
                 <h1>Error</h1>
                 <p>An error occurred: <t t-esc="error"/></p>
                 <a href="/bikes" class="btn btn-primary">Back to Bikes</a>
+            </div>
+        </t>
+    </template>
+    <template id="my_requests_template" name="My Bike Requests">
+        <t t-call="website.layout">
+            <div class="container mt-4">
+                <h1>My Bike Rental Requests</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Bike</th>
+                            <th>Request Date</th>
+                            <th>Start Date</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="requests" t-as="req">
+                            <tr>
+                                <td><t t-esc="req.name"/></td>
+                                <td><t t-esc="req.bike_id.name"/></td>
+                                <td><t t-esc="req.request_date"/></td>
+                                <td><t t-esc="req.start_date"/></td>
+                                <td><t t-esc="req.duration"/></td>
+                                <td><t t-esc="req.state"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <a href="/bikes" class="btn btn-primary">Rent Another Bike</a>
             </div>
         </t>
     </template>

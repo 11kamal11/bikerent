@@ -9,3 +9,4 @@ class BikeRental(models.Model):
     price = fields.Float(string='Rental Price', required=True)
     rental_duration = fields.Integer(string='Rental Duration (days)', required=True)
     is_available = fields.Boolean(string='Available', default=True)
+    image = fields.Binary(string='Image', attachment=True)

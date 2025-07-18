@@ -1,0 +1,17 @@
+.bike-card {
+    transition: transform 0.2s;
+}
+.bike-card:hover {
+    transform: scale(1.05);
+}
+.bike-card img {
+    max-height: 200px;
+    object-fit: cover;
+}
+#calendar {
+    max-width: 900px;
+    margin: 20px auto;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}

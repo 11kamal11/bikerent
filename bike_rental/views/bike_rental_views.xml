@@ -9,6 +9,7 @@
                 <field name="name" string="Bike Name"/>
                 <field name="price" string="Price"/>
                 <field name="is_available" string="Available"/>
+                <field name="image" widget="image" string="Image"/>
             </list>
         </field>
     </record>
@@ -20,6 +21,7 @@
             <form string="Bike Rental">
                 <sheet>
                     <group>
+                        <field name="image" widget="image" string="Image"/>
                         <field name="name" string="Bike Name"/>
                         <field name="description" string="Description"/>
                         <field name="price" string="Price"/>
