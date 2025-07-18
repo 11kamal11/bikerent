@@ -5,7 +5,7 @@
     "summary": "A simple bike rental module for Odoo.",
     "description": "This module allows users to rent bikes, manage rental records, and track availability.",
     "author": "Kamal",
-    "website": "https://yourwebsite.com",
+    "website": "https://youtube.com",
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",
