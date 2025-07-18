@@ -9,9 +9,9 @@
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",
-        "views/bike_rental_views.xml"
+        "views/bike_rental_views.xml",
     ],
     "installable": True,
     "application": True,
-    "auto_install": False
+    "auto_install": False,
 }

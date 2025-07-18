@@ -15,17 +15,29 @@
         <field name="model">bike.rental</field>
         <field name="arch" type="xml">
             <form>
-                <field name="name"/>
-                <field name="description"/>
-                <field name="price"/>
-                <field name="rental_duration"/>
-                <field name="is_available"/>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="price"/>
+                        <field name="rental_duration"/>
+                        <field name="is_available"/>
+                    </group>
+                </sheet>
             </form>
         </field>
     </record>
-    <menuitem id="menu_bike_rental_root" name="Bike Rental"/>
-    <menuitem id="menu_bike_rental" name="Bikes" parent="menu_bike_rental_root"/>
-    <act_window id="action_bike_rental" name="Bike Rentals"
-        res_model="bike.rental" view_mode="tree,form"
-        menu_id="menu_bike_rental"/>
+    <menuitem id="menu_bike_rental_root" name="Bike Rental" sequence="10"/>
+    <menuitem id="menu_bike_rental" name="Bikes" parent="menu_bike_rental_root" sequence="20"/>
+    <record id="action_bike_rental" model="ir.actions.act_window">
+        <field name="name">Bike Rentals</field>
+        <field name="res_model">bike.rental</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new bike rental record.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_bike_rental_action" name="Bike Rentals" action="action_bike_rental" parent="menu_bike_rental" sequence="30"/>
 </odoo>
