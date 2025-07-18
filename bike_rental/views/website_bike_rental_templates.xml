@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <data>
+        <!-- Register bike_list_template as a website page -->
+        <record id="bike_list_page" model="website.page">
+            <field name="name">Bike Rental Home</field>
+            <field name="url">/</field>
+            <field name="view_id" ref="bike_rental.bike_list_template"/>
+            <field name="website_indexed">True</field>
+            <field name="is_published">True</field>
+        </record>
+    </data>
+
     <template id="bike_list_template" name="Bike Rental Home" page="true">
         <t t-call="website.layout">
             <t t-set="main_object" t-value="request.env.ref('bike_rental.bike_list_template')"/>

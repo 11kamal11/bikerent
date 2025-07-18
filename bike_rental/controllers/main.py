@@ -6,7 +6,7 @@ from datetime import datetime
 _logger = logging.getLogger(__name__)
 
 class BikeRentalController(http.Controller):
-    @http.route('/', auth='public', website=True, type='http')
+    @http.route('/', auth='public', website=True, type='http', website=False, priority=1)
     def home(self, **kwargs):
         _logger.info("Accessed custom home route with kwargs: %s", kwargs)
         price_filter = float(kwargs.get('price_filter', 0)) if kwargs.get('price_filter') else None
@@ -17,10 +17,14 @@ class BikeRentalController(http.Controller):
         _logger.info("Rendering home with %d bikes, price_filter=%s", len(bikes), price_filter)
         if not bikes:
             _logger.warning("No bikes found for domain: %s", domain)
-        return request.render('bike_rental.bike_list_template', {
+        response = request.render('bike_rental.bike_list_template', {
             'bikes': bikes,
             'price_filter': price_filter or '',
         })
+        if not response:
+            _logger.error("Failed to render bike_list_template, returning fallback")
+            return "<h1>Bike Rental Page (Fallback)</h1><p>Check logs for details.</p>"
+        return response
 
     @http.route('/bikes', auth='public', website=True, type='http')
     def bike_list(self, **kwargs):
