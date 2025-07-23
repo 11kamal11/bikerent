@@ -34,18 +34,17 @@
                 <form string="Bike Rental">
                     <sheet>
                         <group>
-                            <field name="image" widget="image" string="Image"/>
-                            <field name="name" string="Bike Name"/>
-                            <field name="description" string="Description"/>
-                            <field name="price" string="Price"/>
-                            <field name="rental_duration" string="Rental Duration (days)"/>
-                            <field name="is_available" string="Available"/>
+                            <group>
+                                <field name="name" string="Bike Name"/>
+                                <field name="description" string="Description"/>
+                                <field name="price" string="Price"/>
+                            </group>
+                            <group>
+                                <field name="rental_duration" string="Rental Duration (days)"/>
+                                <field name="is_available" string="Available"/>
+                                <field name="image" widget="image" string="Image"/>
+                            </group>
                         </group>
-                        <div class="oe_chatter">
-                            <field name="message_follower_ids" widget="mail_followers"/>
-                            <field name="activity_ids" widget="mail_activity"/>
-                            <field name="message_ids" widget="mail_thread"/>
-                        </div>
                     </sheet>
                 </form>
             </field>

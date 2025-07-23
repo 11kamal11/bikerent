@@ -5,10 +5,11 @@ class BikeRental(models.Model):
     _name = 'bike.rental'
     _description = 'Bike Rental'
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'name'
 
-    name = fields.Char(string="Bike Name", required=True)
+    name = fields.Char(string="Bike Name", required=True, tracking=True)
     description = fields.Text(string="Description")
-    price = fields.Float(string="Price per Day", required=True, default=10.0)
+    price = fields.Float(string="Price per Day", required=True, default=10.0, tracking=True)
     image = fields.Binary(string="Image")
     is_available = fields.Boolean(string="Available", default=True, tracking=True)
     rental_duration = fields.Integer(string="Default Rental Duration (days)", default=1)
@@ -24,6 +25,7 @@ class BikeRental(models.Model):
         for bike in self:
             if bike.is_available:
                 bike.is_available = False
+                bike.message_post(body="Bike has been rented out.")
             else:
                 raise ValidationError("This bike is already rented.")
 
@@ -31,5 +33,6 @@ class BikeRental(models.Model):
         for bike in self:
             if not bike.is_available:
                 bike.is_available = True
+                bike.message_post(body="Bike has been returned.")
             else:
                 raise ValidationError("This bike is already available.")
