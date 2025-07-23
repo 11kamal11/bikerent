@@ -6,14 +6,13 @@ class BikeRentalRequest(models.Model):
     _description = 'Bike Rental Request'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
-    _order = 'request_date desc, id desc'
 
-    name = fields.Char(string="Customer Name", required=True, tracking=True)
-    bike_id = fields.Many2one('bike.rental', string="Bike", required=True, tracking=True)
-    start_date = fields.Date(string="Start Date", required=True, tracking=True)
-    duration = fields.Integer(string="Duration (days)", required=True, tracking=True)
-    user_id = fields.Many2one('res.users', string="Requested By", default=lambda self: self.env.user, tracking=True)
-    request_date = fields.Date(string="Request Date", default=fields.Date.today, tracking=True)
+    name = fields.Char(string="Customer Name", required=True)
+    bike_id = fields.Many2one('bike.rental', string="Bike", required=True)
+    start_date = fields.Date(string="Start Date", required=True)
+    duration = fields.Integer(string="Duration (days)", required=True)
+    user_id = fields.Many2one('res.users', string="Requested By", default=lambda self: self.env.user)
+    request_date = fields.Date(string="Request Date", default=fields.Date.today)
     state = fields.Selection([
         ('pending', 'Pending'),
         ('approved', 'Approved'),
@@ -37,7 +36,6 @@ class BikeRentalRequest(models.Model):
             if request.state == 'pending':
                 request.bike_id.action_rent()
                 request.state = 'approved'
-                request.message_post(body="Rental request has been approved.")
             else:
                 raise ValidationError("Only pending requests can be approved.")
 
@@ -45,6 +43,5 @@ class BikeRentalRequest(models.Model):
         for request in self:
             if request.state == 'pending':
                 request.state = 'rejected'
-                request.message_post(body="Rental request has been rejected.")
             else:
                 raise ValidationError("Only pending requests can be rejected.")
