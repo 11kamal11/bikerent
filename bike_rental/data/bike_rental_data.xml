@@ -8,7 +8,6 @@
             <field name="price">25.0</field>
             <field name="is_available">True</field>
         </record>
-        
         <record id="bike_2" model="bike.rental">
             <field name="name">City Bike</field>
             <field name="description">Perfect for city commuting</field>
