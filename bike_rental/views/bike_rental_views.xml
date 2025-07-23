@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-    <data>
-        <!-- List view for bike.rental -->
+<?x        <!-- List view for bike.rental -->
         <record id="view_bike_rental_list" model="ir.ui.view">
             <field name="name">bike.rental.list</field>
             <field name="model">bike.rental</field>
@@ -9,9 +6,24 @@
                 <list string="Bike Rentals">
                     <field name="name" string="Bike Name"/>
                     <field name="price" string="Price"/>
-                    <field name="is_available" string="Available"/>
+                    <field name="is_available" string="Available" decoration-success="is_available == True" decoration-danger="is_available == False"/>
                     <field name="image" widget="image" string="Image" optional="hide"/>
                 </list>
+            </field>
+        </record>.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Tree view for bike.rental -->
+        <record id="view_bike_rental_tree" model="ir.ui.view">
+            <field name="name">bike.rental.tree</field>
+            <field name="model">bike.rental</field>
+            <field name="arch" type="xml">
+                <tree string="Bike Rentals">
+                    <field name="name" string="Bike Name"/>
+                    <field name="price" string="Price"/>
+                    <field name="is_available" string="Available" decoration-success="is_available == True" decoration-danger="is_available == False"/>
+                    <field name="image" widget="image" string="Image" optional="hide"/>
+                </tree>
             </field>
         </record>
         <!-- Form view for bike.rental -->

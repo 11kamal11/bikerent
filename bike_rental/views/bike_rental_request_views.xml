@@ -11,7 +11,7 @@
                     <field name="bike_id"/>
                     <field name="start_date"/>
                     <field name="duration"/>
-                    <field name="state"/>
+                    <field name="state" decoration-success="state == 'approved'" decoration-warning="state == 'pending'" decoration-danger="state == 'rejected'"/>
                     <field name="request_date"/>
                 </list>
             </field>
@@ -25,9 +25,9 @@
                 <form>
                     <header>
                         <button name="action_approve" string="Approve" type="object" class="btn-primary" 
-                                states="pending"/>
+                                invisible="state != 'pending'"/>
                         <button name="action_reject" string="Reject" type="object" class="btn-secondary" 
-                                states="pending"/>
+                                invisible="state != 'pending'"/>
                         <field name="state" widget="statusbar" statusbar_visible="pending,approved,rejected"/>
                     </header>
                     <sheet>
